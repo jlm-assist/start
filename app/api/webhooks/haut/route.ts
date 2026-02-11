@@ -84,11 +84,11 @@ export async function POST(req: NextRequest) {
         where: { scanSessionId: scan.id },
         create: {
           scanSessionId: scan.id,
-          rawJson: results,
+          rawJson: results as any,
           normalizedJson: normalizedMetrics,
         },
         update: {
-          rawJson: results,
+          rawJson: results as any,
           normalizedJson: normalizedMetrics,
         },
       })

@@ -6,7 +6,7 @@ import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
 import { Navbar } from '@/components/layout/Navbar'
 import { MetricCard } from '@/components/ui/MetricCard'
-import { formatDate, daysAgo } from '@/lib/utils'
+import { daysAgo } from '@/lib/utils'
 
 interface ReportData {
   id: string
@@ -22,7 +22,7 @@ interface ReportData {
 export default function ReportPage() {
   const router = useRouter()
   const params = useParams()
-  const { data: session, status } = useSession()
+  const { status } = useSession()
   const [report, setReport] = useState<ReportData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')

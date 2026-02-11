@@ -7,7 +7,7 @@ import { prisma } from '@/lib/prisma'
  * GET /api/scans/[scanId]/status - Get current scan status
  */
 export async function GET(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: { scanId: string } }
 ) {
   try {

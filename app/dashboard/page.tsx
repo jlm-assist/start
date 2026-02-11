@@ -19,7 +19,7 @@ interface Scan {
 
 export default function DashboardPage() {
   const router = useRouter()
-  const { data: session, status } = useSession()
+  const { status } = useSession()
   const [scans, setScans] = useState<Scan[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -58,7 +58,7 @@ export default function DashboardPage() {
   const trendData = completedScans
     .slice(0, 12)
     .reverse()
-    .map((scan, i) => ({
+    .map((scan) => ({
       date: formatDateShort(new Date(scan.createdAt)),
       value: scan.metrics?.moisture || 0,
     }))

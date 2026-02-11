@@ -66,11 +66,11 @@ export async function GET(req: NextRequest) {
             where: { scanSessionId: payload.scanId },
             create: {
               scanSessionId: payload.scanId,
-              rawJson: results,
+              rawJson: results as any,
               normalizedJson: normalizedMetrics,
             },
             update: {
-              rawJson: results,
+              rawJson: results as any,
               normalizedJson: normalizedMetrics,
             },
           })

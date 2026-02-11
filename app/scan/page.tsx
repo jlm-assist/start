@@ -8,7 +8,7 @@ import { Navbar } from '@/components/layout/Navbar'
 
 export default function ScanPage() {
   const router = useRouter()
-  const { data: session, status } = useSession()
+  const { status } = useSession()
   const [scanning, setScanning] = useState(false)
   const [loading, setLoading] = useState(false)
   const [scanId, setScanId] = useState<string | null>(null)
@@ -88,7 +88,7 @@ export default function ScanPage() {
             <p class="text-sm text-gray-500">Integration with Haut.AI LIQA SDK required</p>
           </div>
         `
-        liqaContainerRef.current.appendChild(placeholder)
+        liqaContainerRef.current?.appendChild(placeholder)
       } catch (err) {
         setError('Failed to load LIQA component')
         console.error(err)

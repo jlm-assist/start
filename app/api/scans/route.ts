@@ -6,7 +6,7 @@ import { prisma } from '@/lib/prisma'
 /**
  * GET /api/scans - Get user's scans
  */
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
 

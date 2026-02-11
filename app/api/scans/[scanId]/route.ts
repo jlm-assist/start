@@ -7,7 +7,7 @@ import { prisma } from '@/lib/prisma'
  * GET /api/scans/[scanId] - Get scan details
  */
 export async function GET(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: { scanId: string } }
 ) {
   try {

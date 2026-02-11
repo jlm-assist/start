@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 interface UploadImageResponse {
   imageId: string
   url?: string
@@ -37,15 +35,9 @@ interface AnalysisResult {
 }
 
 class HautClient {
-  private apiKey: string
-  private apiBase: string
-  private appId: string
   private isMockMode: boolean
 
   constructor() {
-    this.apiKey = process.env.HAUT_API_KEY || ''
-    this.apiBase = process.env.HAUT_API_BASE_URL || 'https://api.haut.ai'
-    this.appId = process.env.HAUT_APP_ID || ''
     this.isMockMode = process.env.HAUT_MOCK === 'true'
   }
 
@@ -76,7 +68,7 @@ class HautClient {
         const blob = this.base64ToBlob(imageData)
         formData.append('image', blob, 'scan.jpg')
       } else {
-        formData.append('image', new Blob([imageData]), 'scan.jpg')
+        formData.append('image', new Blob([imageData as any]), 'scan.jpg')
       }
 
       if (options?.metadata) {
@@ -115,8 +107,8 @@ class HautClient {
    * @param options Computation options
    */
   async startComputation(
-    imageId: string,
-    options?: {
+    _imageId: string,
+    _options?: {
       preset?: string
       parameters?: Record<string, any>
     }
@@ -164,7 +156,7 @@ class HautClient {
    * Get computation results
    * @param jobId Job ID from startComputation
    */
-  async getResults(jobId: string): Promise<AnalysisResult> {
+  async getResults(_jobId: string): Promise<AnalysisResult> {
     if (this.isMockMode) {
       return this.mockGetResults()
     }
@@ -205,7 +197,7 @@ class HautClient {
    * Get job status
    * @param jobId Job ID to check
    */
-  async getJobStatus(jobId: string): Promise<{ status: string; progress?: number }> {
+  async getJobStatus(_jobId: string): Promise<{ status: string; progress?: number }> {
     if (this.isMockMode) {
       return { status: 'completed' }
     }
@@ -225,7 +217,7 @@ class HautClient {
    * Get auxiliary images (heatmaps, segmentation, etc.)
    * @param jobId Job ID
    */
-  async getAuxImages(jobId: string): Promise<Record<string, string>> {
+  async getAuxImages(_jobId: string): Promise<Record<string, string>> {
     if (this.isMockMode) {
       return this.mockGetAuxImages()
     }

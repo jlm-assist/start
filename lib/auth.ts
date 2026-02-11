@@ -1,4 +1,4 @@
-import { NextAuthOptions, Session } from 'next-auth'
+import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import EmailProvider from 'next-auth/providers/email'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
@@ -64,22 +64,14 @@ export const authOptions: NextAuthOptions = {
         },
       },
       from: process.env.EMAIL_FROM || 'noreply@dermalabs.app',
-      sendVerificationRequest: async ({
-        identifier: email,
-        url,
-        provider,
-        theme,
-      }) => {
-        const { host } = new URL(url)
-        const result = await emailClient.sendMail({
+      sendVerificationRequest: async (params) => {
+        const { identifier: email, url } = params
+        await emailClient.sendMail({
           to: email,
           from: process.env.EMAIL_FROM || 'noreply@dermalabs.app',
           subject: 'Sign in to DermaLabs SkinScan',
-          html: emailSignInTemplate(url, email, host),
+          html: emailSignInTemplate(url),
         })
-        if (result.error) {
-          throw new Error('Failed to send verification email')
-        }
       },
     }),
   ],
@@ -111,7 +103,7 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 }
 
-function emailSignInTemplate(url: string, email: string, host: string) {
+function emailSignInTemplate(url: string) {
   return `
     <div style="font-family: system-ui, sans-serif; line-height: 1.6; color: #333;">
       <div style="max-width: 600px; margin: 0 auto; padding: 20px;">

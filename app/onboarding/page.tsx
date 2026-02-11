@@ -8,7 +8,7 @@ import { Navbar } from '@/components/layout/Navbar'
 
 export default function OnboardingPage() {
   const router = useRouter()
-  const { data: session, status } = useSession()
+  const { status } = useSession()
   const [consent, setConsent] = useState(false)
   const [loading, setLoading] = useState(false)
 
