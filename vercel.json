@@ -1,0 +1,15 @@
+{
+  "buildCommand": "npm run build && npm run prisma:generate",
+  "functions": {
+    "app/api/**/*.ts": {
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/process-jobs",
+      "schedule": "*/5 * * * *"
+    }
+  ]
+}
