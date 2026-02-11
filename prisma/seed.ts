@@ -65,7 +65,7 @@ async function main() {
       hydrationLevel: mockMetrics.hydrationLevel + Math.random() * 10 - 5,
     }
 
-    const result = await prisma.scanResult.create({
+    await prisma.scanResult.create({
       data: {
         scanSessionId: scan.id,
         normalizedJson: variedMetrics,
