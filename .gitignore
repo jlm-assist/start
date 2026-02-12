@@ -41,3 +41,6 @@ lerna-debug.log*
 # Prisma
 prisma/dev.db
 prisma/*.db-journal
+
+# Export artifacts
+*-export.zip
